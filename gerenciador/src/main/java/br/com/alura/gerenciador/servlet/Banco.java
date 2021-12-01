@@ -9,6 +9,8 @@ public class Banco {
 	private static List<Empresa> lista = new ArrayList<>();
 	private static Integer chaveSequencial = 1;
 	
+	private String apagar;
+	
 	static {
 		Empresa empresa = new Empresa();
 		empresa.setId(chaveSequencial++);
