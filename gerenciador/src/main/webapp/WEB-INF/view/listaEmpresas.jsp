@@ -23,8 +23,8 @@
 			
 			<li>
 				${empresa.nome } - <fmt:formatDate value="${empresa.dataAbertura }" pattern="dd/MM/yyyy"/> 
-				<a href="/gerenciador/entrada?acao=mostraEmpresa&id=${empresa.id }">edita</a>
-				<a href="/gerenciador/entrada?acao=removeEmpresa&id=${empresa.id }">remove</a>
+				<a href="/gerenciador/entrada?acao=MostraEmpresa&id=${empresa.id }">edita</a>
+				<a href="/gerenciador/entrada?acao=RemoveEmpresa&id=${empresa.id }">remove</a>
 			</li>
 			
 		</c:forEach>
@@ -32,7 +32,7 @@
 	
 	<ul>
 		<li>
-			<a href="/gerenciador/formNovaEmpresa.jsp">Cadastrar Nova Empresa</a>
+			<a href="/gerenciador/entrada?acao=NovaEmpresaForm">Cadastrar Nova Empresa</a>
 		</li>
 	</ul>
 	

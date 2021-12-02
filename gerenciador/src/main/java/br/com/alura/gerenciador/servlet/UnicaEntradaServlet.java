@@ -2,17 +2,14 @@ package br.com.alura.gerenciador.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.alura.gerenciador.acao.AlteraEmpresa;
-import br.com.alura.gerenciador.acao.ListaEmpresas;
-import br.com.alura.gerenciador.acao.MostraEmpresa;
-import br.com.alura.gerenciador.acao.NovaEmpresa;
-import br.com.alura.gerenciador.acao.RemoveEmpresa;
+import br.com.alura.gerenciador.acao.Acao;
 
 /**
  * Este servlet servira como a única entrada para a aplicação
@@ -24,33 +21,62 @@ public class UnicaEntradaServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String acao = request.getParameter("acao");
+		String paramAcao = request.getParameter("acao");
 
-		if (acao.equals("listaEmpresas")) {
-
-			ListaEmpresas listaEmpresas = new ListaEmpresas();
-			listaEmpresas.executa(request, response);
-
-		} else if (acao.equals("mostraEmpresa")) {
-
-			MostraEmpresa mostraEmpresa = new MostraEmpresa();
-			mostraEmpresa.executa(request, response);
-
-		} else if (acao.equals("alteraEmpresa")) {
-			
-			AlteraEmpresa alteraEmpresa = new AlteraEmpresa();
-			alteraEmpresa.executa(request, response);
-
-		} else if (acao.equals("novaEmpresa")) {
-
-			NovaEmpresa novaEmpresa = new NovaEmpresa();
-			novaEmpresa.executa(request, response);
-
-		} else if (acao.equals("removeEmpresa")) {
-
-			RemoveEmpresa removeEmpresa = new RemoveEmpresa();
-			removeEmpresa.executa(request, response);
+		// Padrão de projeto Reflection
+		// O nome deve ser igual ao da classe Ex: MostraEmpresa
+		String nomeDaClasse = "br.com.alura.gerenciador.acao." + paramAcao;
+		Class classe;
+		String nome;
+		try {
+			classe = Class.forName(nomeDaClasse);
+			Object obj = classe.newInstance();
+			Acao acao = (Acao) obj;
+			nome = acao.executa(request, response);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			throw new ServletException(e);
 		}
+
+		String[] tipoControle = nome.split(":");
+		if (tipoControle[0].equals("forward")) {
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/" + tipoControle[1]);
+			rd.forward(request, response);
+		} else {
+			response.sendRedirect(tipoControle[1]);
+		}
+
+		// Usando o Padrão de projeto Reflection todo o codigo abaixo nao precisa.
+//		if (paramAcao.equals("listaEmpresas")) {
+//
+//			ListaEmpresas acao = new ListaEmpresas();
+//			nome = acao.executa(request, response);
+//
+//		} else if (paramAcao.equals("mostraEmpresa")) {
+//
+//			MostraEmpresa acao = new MostraEmpresa();
+//			nome = acao.executa(request, response);
+//
+//		} else if (paramAcao.equals("alteraEmpresa")) {
+//
+//			AlteraEmpresa acao = new AlteraEmpresa();
+//			nome = acao.executa(request, response);
+//
+//		} else if (paramAcao.equals("novaEmpresa")) {
+//
+//			NovaEmpresa acao = new NovaEmpresa();
+//			nome = acao.executa(request, response);
+//
+//		} else if (paramAcao.equals("removeEmpresa")) {
+//
+//			RemoveEmpresa acao = new RemoveEmpresa();
+//			nome = acao.executa(request, response);
+//
+//		} else if (paramAcao.equals("novaEmpresaForm")) {
+//
+//			NovaEmpresaForm acao = new NovaEmpresaForm();
+//			nome = acao.executa(request, response);
+//
+//		}
 
 	}
 
