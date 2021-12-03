@@ -10,13 +10,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 //Intercepta todas as entradas antes dos servlets/controller
-@WebFilter("/entrada")
+//@WebFilter("/entrada") // Foi incluido no webxml para garantir a ordem de chamada do Filter
 public class MonitoramentoFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
+		System.out.println("MonitoramentoFilter");
+		
 		long antes = System.currentTimeMillis();
 
 		String acao = request.getParameter("acao");

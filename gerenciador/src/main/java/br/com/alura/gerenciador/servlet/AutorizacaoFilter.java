@@ -15,12 +15,14 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AutorizacaoFilter
  */
-@WebFilter("/entrada")
+//@WebFilter("/entrada") // Foi incluido no webxml para garantir a ordem de chamada do Filter
 public class AutorizacaoFilter implements Filter {
 
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
 			throws IOException, ServletException {
 
+		System.out.println("AutorizacaoFilter");
+		
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 
