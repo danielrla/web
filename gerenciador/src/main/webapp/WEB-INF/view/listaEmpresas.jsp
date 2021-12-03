@@ -12,9 +12,7 @@
 </head>
 <body>
 
-	Usuario Logado: ${usuarioLogado.login}
-	<br>
-	<br>
+	<c:import url="usuario.jsp" />
 
 	<c:if test="${not empty empresa}">
 		Empresa ${ empresa } cadastrada com sucesso!

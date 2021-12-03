@@ -9,6 +9,8 @@
 </head>
 <body>
 
+	<c:import url="usuario.jsp" />
+
 	<form action="${linkServletNovaEmpresa }" method="post">
 	
 		Nome: <input type="text" name="nome"  />

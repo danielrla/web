@@ -11,7 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
+	<c:import url="usuario.jsp" />
+	
 	<form action="${linkEntradaServlet }" method="post">
 	
 		Nome: <input type="text" name="nome" value="${empresa.nome }" />
