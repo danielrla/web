@@ -14,7 +14,7 @@ import br.com.alura.gerenciador.acao.Acao;
 /**
  * Este servlet servira como a única entrada para a aplicação
  */
-@WebServlet("/entrada")
+//@WebServlet("/entrada") Foi substituido pelo controlador ControladorFilter
 public class UnicaEntradaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
